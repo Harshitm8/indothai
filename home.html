@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Indo Thai Global — Solar & Hybrid Drying Systems</title>
+<link rel="icon" href="assets/logo.png" type="image/png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════
+   RESET & TOKENS
+═══════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --nav-h: 72px;
+  --white:         #ffffff;
+  --off-white:     #f9f8f5;
+  --cream:         #f3f0e8;
+  --border:        rgba(160,120,40,0.13);
+  --border-strong: rgba(160,120,40,0.28);
+  --text-dark:     #16150f;
+  --text-mid:      #5a5244;
+  --text-light:    #8c8070;
+  --green:    #4a9a1a;
+  --amber:    #c87a10;
+  --orange:   #c84010;
+  --green-bg: rgba(74,154,26,0.07);
+  --amber-bg: rgba(200,122,16,0.07);
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:  'DM Sans', sans-serif;
+  --font-mono:  'DM Mono', monospace;
+  --ease: cubic-bezier(0.22,1,0.36,1);
+  --r-sm:4px; --r-md:12px; --r-lg:20px; --r-full:100px;
+}
+
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-sans);
+  background: var(--off-white);
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+img, video, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.2rem,4vw,2.8rem); }
+.section { padding: clamp(4rem,8vw,7rem) 0; }
+
+/* ═══════════════════════════════════════
+   NAVBAR
+═══════════════════════════════════════ */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 900;
+  height: var(--nav-h);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(22px) saturate(1.6);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow .35s ease, background .35s ease;
+  animation: navEnter .75s var(--ease) .05s both;
+}
+.nav.is-scrolled {
+  background: rgba(255,255,255,0.98);
+  border-color: var(--border-strong);
+  box-shadow: 0 4px 28px rgba(20,16,4,0.09);
+}
+.nav-accent {
+  position: absolute; top:0; left:0; right:0; height:3px;
+  background: linear-gradient(90deg, var(--green) 0%, var(--amber) 50%, var(--orange) 100%);
+  opacity: 0.85;
+}
+.nav-progress {
+  position: absolute; bottom:-1px; left:0; height:2px; width:0%;
+  background: linear-gradient(90deg,var(--green),var(--amber),var(--orange));
+  opacity:0; transition: opacity .4s ease, width .08s linear;
+}
+.nav.is-scrolled .nav-progress { opacity:1; }
+
+.nav-inner {
+  max-width: 1280px; margin: 0 auto; height:100%;
+  display: grid;
+  grid-template-columns: auto 1px 1fr auto;
+  align-items: center;
+  padding: 0 clamp(1rem,3.5vw,2.4rem);
+  gap: 0;
+}
+
+/* Brand — strictly far LEFT */
+.nav-brand {
+  display: flex; align-items: center; gap:10px;
+  flex-shrink:0; padding: 4px 0;
+  grid-column: 1;
+}
+.nav-logo {
+  width:52px; height:52px; object-fit:contain;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 2px 5px rgba(200,100,10,0.15));
+  transition: transform .38s var(--ease);
+}
+.nav-brand:hover .nav-logo { transform: scale(1.08) rotate(-3deg); }
+.nav-brand-words { display:flex; flex-direction:column; gap:1px; line-height:1; }
+.nav-brand-name {
+  font-family: var(--font-serif); font-weight:700; font-size:1.5rem;
+  letter-spacing:.02em; color:var(--text-dark); white-space:nowrap;
+  transition: background .3s ease, -webkit-text-fill-color .3s ease;
+}
+.nav-brand:hover .nav-brand-name {
+  background: linear-gradient(105deg,var(--green) 0%,var(--amber) 52%,var(--orange) 100%);
+  -webkit-background-clip: text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+.nav-brand-tag {
+  font-family:var(--font-mono); font-size:0.62rem; font-weight:500;
+  letter-spacing:.2em; text-transform:uppercase; color:var(--amber); white-space:nowrap;
+}
+
+.nav-divider {
+  width:1px; height:24px;
+  background:linear-gradient(180deg,transparent,var(--border-strong),transparent);
+  margin:0 clamp(.4rem,1.2vw,1rem); flex-shrink:0;
+  grid-column: 2;
+}
+
+/* Desktop links — centered */
+.nav-links {
+  display:flex; align-items:center; justify-content:center;
+  list-style:none; gap:2px; flex-shrink:0;
+  grid-column: 3;
+}
+
+/* Right-side group: lang + cta + burger */
+.nav-right {
+  display:flex; align-items:center; gap:.5rem;
+  flex-shrink:0; grid-column:4; margin-left:clamp(.5rem,1.5vw,1.2rem);
+}
+.nav-link {
+  position:relative; display:inline-flex; align-items:center;
+  font-family:var(--font-sans); font-size:.82rem; font-weight:500; letter-spacing:.025em;
+  color:var(--text-mid); padding:.42rem .75rem; border-radius:7px; white-space:nowrap;
+  transition: color .2s, background .2s;
+  opacity:0; transform:translateY(-8px);
+  animation: linkDrop .5s var(--ease) forwards;
+}
+.nav-link:nth-child(1){animation-delay:.28s} .nav-link:nth-child(2){animation-delay:.33s}
+.nav-link:nth-child(3){animation-delay:.38s} .nav-link:nth-child(4){animation-delay:.43s}
+.nav-link:nth-child(5){animation-delay:.48s} .nav-link:nth-child(6){animation-delay:.53s}
+.nav-link::after {
+  content:''; position:absolute; bottom:4px; left:.75rem; right:.75rem; height:1.5px;
+  border-radius:2px;
+  background:linear-gradient(90deg,var(--green),var(--amber),var(--orange));
+  transform:scaleX(0); transform-origin:left; transition:transform .26s var(--ease);
+}
+.nav-link:hover { color:var(--text-dark); background:rgba(160,120,40,.06); }
+.nav-link:hover::after, .nav-link.active::after { transform:scaleX(1); }
+.nav-link.active { color:var(--text-dark); }
+
+/* Language switcher */
+.lang-switcher {
+  position:relative; flex-shrink:0;
+  opacity:0; animation: ctaDrop .55s var(--ease) .6s forwards;
+}
+.lang-btn {
+  display:inline-flex; align-items:center; gap:5px;
+  padding:.38rem .85rem; border-radius:var(--r-full);
+  border:1px solid var(--border-strong); background:transparent;
+  font-family:var(--font-sans); font-size:.78rem; font-weight:500; color:var(--text-mid);
+  cursor:pointer; transition: border-color .2s, color .2s, background .2s; white-space:nowrap;
+}
+.lang-btn:hover { border-color:var(--amber); color:var(--text-dark); background:var(--amber-bg); }
+.lang-globe { font-size:.88rem; }
+.lang-arrow { font-size:.6rem; transition:transform .2s; display:inline-block; }
+.lang-switcher.open .lang-arrow { transform:rotate(180deg); }
+.lang-dropdown {
+  position:absolute; top:calc(100% + 8px); right:0; width:210px;
+  background:white; border:1px solid var(--border-strong); border-radius:var(--r-md);
+  box-shadow:0 12px 40px rgba(0,0,0,0.16); overflow:hidden;
+  opacity:0; transform:translateY(-8px) scale(.97); pointer-events:none;
+  transition: opacity .22s var(--ease), transform .22s var(--ease);
+  z-index:9999;
+}
+.lang-switcher.open .lang-dropdown { opacity:1; transform:translateY(0) scale(1); pointer-events:all; }
+.lang-search-wrap {
+  padding:.55rem .7rem; border-bottom:1px solid var(--border);
+  position:sticky; top:0; background:white; z-index:1;
+}
+.lang-search {
+  width:100%; padding:.35rem .6rem; border-radius:6px;
+  border:1px solid var(--border); font-size:.78rem; font-family:var(--font-sans);
+  outline:none; color:var(--text-dark); background:var(--off-white);
+}
+.lang-search:focus { border-color:var(--amber); }
+.lang-list {
+  max-height:260px; overflow-y:auto; padding:.3rem 0;
+}
+.lang-list::-webkit-scrollbar { width:4px; }
+.lang-list::-webkit-scrollbar-thumb { background:rgba(160,120,40,.25); border-radius:2px; }
+.lang-option {
+  display:flex; align-items:center; gap:8px;
+  padding:.48rem 1rem; font-size:.82rem; color:var(--text-mid); cursor:pointer;
+  transition: background .15s, color .15s;
+}
+.lang-option:hover { background:var(--amber-bg); color:var(--text-dark); }
+.lang-option.active { color:var(--amber); font-weight:600; background:rgba(200,122,16,.05); }
+.lang-option.hidden { display:none; }
+
+/* CTA */
+.nav-cta {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:.46rem 1.15rem; border-radius:var(--r-full);
+  font-family:var(--font-sans); font-size:.78rem; font-weight:600; letter-spacing:.05em;
+  color:#eee8d0; background:linear-gradient(120deg,#1e2e10 0%,#2d4218 100%);
+  border:1px solid rgba(120,190,50,.22); box-shadow:0 2px 10px rgba(0,0,0,.18);
+  flex-shrink:0; position:relative; overflow:hidden; white-space:nowrap;
+  transition: transform .22s ease, box-shadow .22s ease;
+  opacity:0; animation: ctaDrop .55s var(--ease) .68s forwards;
+}
+.nav-cta::before {
+  content:''; position:absolute; top:0; left:-100%; width:60%; bottom:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent);
+  transform:skewX(-18deg); transition:left .45s ease;
+}
+.nav-cta:hover::before { left:160%; }
+.nav-cta:hover { transform:translateY(-2px); box-shadow:0 6px 22px rgba(0,0,0,.22),0 0 18px rgba(90,160,30,.14); }
+
+/* Burger */
+.nav-burger {
+  display:none; flex-direction:column; justify-content:center; align-items:center; gap:5px;
+  width:40px; height:40px; background:none; border:1px solid var(--border);
+  border-radius:8px; cursor:pointer; margin-left:.6rem; flex-shrink:0;
+  transition: background .2s, border-color .2s;
+}
+.nav-burger:hover { background:rgba(160,120,40,.07); border-color:var(--border-strong); }
+.burger-line {
+  display:block; width:18px; height:1.5px; background:var(--text-dark); border-radius:2px;
+  transform-origin:center; transition:transform .3s var(--ease), opacity .25s, width .3s;
+}
+.nav-burger.is-open .burger-line:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+.nav-burger.is-open .burger-line:nth-child(2) { opacity:0; width:0; }
+.nav-burger.is-open .burger-line:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+
+/* Mobile drawer */
+.nav-drawer {
+  position:fixed; top:var(--nav-h); inset-inline:0; z-index:899;
+  background:rgba(255,255,255,.98); backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border-strong);
+  max-height:0; overflow:hidden;
+  transition: max-height .4s var(--ease), padding .3s ease;
+}
+.nav-drawer.is-open { max-height:500px; padding:.7rem 0 1.4rem; }
+.drawer-links { list-style:none; display:flex; flex-direction:column; padding:0 clamp(1rem,4vw,2rem); }
+.drawer-link {
+  display:flex; align-items:center; justify-content:space-between;
+  font-family:var(--font-sans); font-size:.92rem; font-weight:500;
+  color:var(--text-mid); padding:.72rem .4rem; border-bottom:1px solid var(--border);
+  transition: color .2s, padding-left .22s var(--ease);
+}
+.drawer-link:last-child { border-bottom:none; }
+.drawer-link:hover { color:var(--text-dark); padding-left:.75rem; }
+.drawer-cta-wrap { padding:1.1rem clamp(1rem,4vw,2rem) 0; }
+.drawer-cta {
+  display:inline-flex; align-items:center; gap:6px; padding:.62rem 1.5rem;
+  background:linear-gradient(120deg,#1e2e10 0%,#2d4218 100%); color:#eee8d0;
+  border-radius:var(--r-full); font-size:.84rem; font-weight:600;
+}
+
+/* ═══════════════════════════════════════
+   HERO — FULL SCREEN WITH OVERLAY
+═══════════════════════════════════════ */
+.hero {
+  position:relative; min-height:100vh;
+  display:flex; flex-direction:column; align-items:flex-start; justify-content:flex-end;
+  overflow:hidden; padding-top:var(--nav-h);
+}
+
+.hero-bg-img {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center;
+  filter:brightness(.55) contrast(1.05);
+  transform:scale(1.04);
+  animation: heroZoom 18s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  from { transform:scale(1.04); }
+  to   { transform:scale(1.12) translate(1%, -1%); }
+}
+
+.hero-overlay {
+  position:absolute; inset:0;
+  background: linear-gradient(
+    160deg,
+    rgba(10,14,6,0.72) 0%,
+    rgba(14,20,8,0.55) 45%,
+    rgba(20,14,4,0.35) 100%
+  );
+}
+/* bottom gradient for text legibility */
+.hero-overlay::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(0deg, rgba(8,10,4,0.85) 0%, transparent 45%);
+}
+
+.hero-dots {
+  position:absolute; inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.07) 1px,transparent 1px);
+  background-size:32px 32px;
+  pointer-events:none; opacity:.6; z-index:1;
+}
+
+.hero-inner {
+  position:relative; z-index:2;
+  width:100%; padding: clamp(4rem,10vw,8rem) 0 clamp(4rem,8vw,6rem);
+}
+
+.hero-pill {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:.3rem 1rem; margin-bottom:1.8rem;
+  background:rgba(200,122,16,.15); border:1px solid rgba(200,122,16,.35);
+  border-radius:var(--r-full); font-family:var(--font-mono); font-size:.6rem;
+  letter-spacing:.22em; text-transform:uppercase; color:#f0c870;
+  opacity:0; animation: fadeUp .7s var(--ease) .3s forwards;
+}
+.pill-dot {
+  width:5px; height:5px; background:var(--green); border-radius:50%;
+  animation:pulseDot 2.2s ease-in-out infinite;
+}
+@keyframes pulseDot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.55)} }
+
+.hero-h1 {
+  font-family:var(--font-serif); font-weight:700;
+  font-size:clamp(3.2rem,8vw,6rem); line-height:1.02; letter-spacing:.01em;
+  color:#ffffff; margin-bottom:1.4rem; max-width:800px;
+  opacity:0; animation:fadeUp .7s var(--ease) .5s forwards;
+}
+.hero-h1 em {
+  font-style:italic;
+  background:linear-gradient(108deg,var(--green) 0%,var(--amber) 48%,var(--orange) 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+
+.hero-p {
+  font-family:var(--font-sans); font-size:clamp(.96rem,1.8vw,1.12rem); font-weight:300;
+  color:rgba(255,255,255,.82); line-height:1.78; max-width:520px; margin-bottom:2.6rem;
+  opacity:0; animation:fadeUp .7s var(--ease) .68s forwards;
+}
+
+.hero-btns {
+  display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+  opacity:0; animation:fadeUp .7s var(--ease) .84s forwards;
+}
+
+.btn-hero-primary {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:.78rem 2rem; border-radius:var(--r-full);
+  background:linear-gradient(120deg,#1e2e10,#2d4218);
+  color:#eee8d0; font-size:.88rem; font-weight:600; letter-spacing:.04em;
+  border:1px solid rgba(120,190,50,.28); box-shadow:0 4px 16px rgba(0,0,0,.25);
+  position:relative; overflow:hidden; transition:transform .22s ease,box-shadow .22s ease;
+}
+.btn-hero-primary::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent);
+  transform:translateX(-100%) skewX(-18deg); transition:transform .45s ease;
+}
+.btn-hero-primary:hover::before { transform:translateX(200%) skewX(-18deg); }
+.btn-hero-primary:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,.3),0 0 24px rgba(90,160,30,.18); }
+
+.btn-hero-ghost {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:.75rem 1.8rem; border-radius:var(--r-full);
+  border:1px solid rgba(255,255,255,.35); color:rgba(255,255,255,.9);
+  font-size:.88rem; font-weight:500; backdrop-filter:blur(6px);
+  transition: border-color .22s, background .22s, color .22s, transform .22s;
+}
+.btn-hero-ghost:hover { border-color:rgba(255,255,255,.7); background:rgba(255,255,255,.1); transform:translateY(-2px); }
+
+/* hero badge (like "Villa Project Completed" badge in ref img 7) */
+.hero-badge {
+  position:absolute; bottom:clamp(4rem,8vw,6rem); right:clamp(1.2rem,5vw,4rem);
+  z-index:3; width:110px; height:110px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  border:2px solid rgba(255,255,255,.4); border-radius:50%;
+  color:white; text-align:center; gap:4px;
+  backdrop-filter:blur(8px); background:rgba(255,255,255,.08);
+  animation: rotateBadge 18s linear infinite, fadeIn 1s var(--ease) 1.2s both;
+}
+.hero-badge-ring {
+  position:absolute; inset:-8px; border-radius:50%;
+  border:1px dashed rgba(255,255,255,.3);
+  animation: rotateBadge 25s linear infinite reverse;
+}
+@keyframes rotateBadge { to { transform:rotate(360deg); } }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.hero-badge-icon { font-size:1.8rem; }
+.hero-badge-text { font-family:var(--font-mono); font-size:.5rem; letter-spacing:.15em; text-transform:uppercase; opacity:.85; line-height:1.4; }
+
+/* scroll hint */
+.scroll-hint {
+  position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:5px; z-index:2;
+  opacity:0; animation:fadeIn .6s var(--ease) 1.4s forwards;
+}
+.scroll-line { width:1px; height:44px; background:linear-gradient(180deg,transparent,rgba(255,255,255,.5)); animation:scrollPulse 2.2s ease-in-out infinite; }
+.scroll-dot { width:4px; height:4px; border-radius:50%; background:#f0c870; }
+@keyframes scrollPulse { 0%,100%{opacity:.4;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.15)} }
+
+/* ═══════════════════════════════════════
+   STATS BAND (like ref img 4 — dark bg with numbers)
+═══════════════════════════════════════ */
+.stats-band {
+  background:linear-gradient(135deg, #0f1a08 0%, #1a2c0e 40%, #120f06 100%);
+  padding: clamp(3rem,6vw,5rem) 0;
+  position:relative; overflow:hidden;
+}
+.stats-band::before {
+  content:''; position:absolute; inset:0;
+  background-image:radial-gradient(circle,rgba(74,154,26,.08) 1px,transparent 1px);
+  background-size:30px 30px;
+}
+.stats-band-inner { position:relative; z-index:1; }
+.stats-headline {
+  color:white; font-family:var(--font-serif); font-size:clamp(1.6rem,3.5vw,2.4rem);
+  font-weight:300; margin-bottom:.8rem; max-width:560px;
+}
+.stats-sub { color:rgba(255,255,255,.62); font-size:.94rem; line-height:1.7; max-width:500px; margin-bottom:3rem; }
+.stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
+.stat-card {
+  padding:clamp(1.4rem,3vw,2rem) clamp(1.2rem,2.5vw,2rem);
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07);
+  position:relative; overflow:hidden;
+  transition:background .25s;
+}
+.stat-card:hover { background:rgba(255,255,255,.07); }
+.stat-card::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(74,154,26,.06),transparent 60%);
+}
+.stat-num {
+  font-family:var(--font-serif); font-size:clamp(2.4rem,5vw,3.8rem); font-weight:700;
+  color:var(--amber); line-height:1;
+}
+.stat-label { font-size:.88rem; color:rgba(255,255,255,.7); margin-top:.5rem; line-height:1.5; }
+
+/* ═══════════════════════════════════════
+   COMPANY / ABOUT
+═══════════════════════════════════════ */
+.company-section { background:var(--off-white); }
+.company-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,5rem); align-items:center; }
+.company-visual { position:relative; }
+.company-img-main {
+  width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:var(--r-lg);
+  box-shadow:0 20px 60px rgba(0,0,0,.15);
+}
+.company-img-float {
+  position:absolute; bottom:-2rem; right:-2rem; width:45%; aspect-ratio:1;
+  object-fit:cover; border-radius:var(--r-md);
+  border:4px solid var(--off-white); box-shadow:0 12px 36px rgba(0,0,0,.18);
+}
+.section-label {
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:var(--font-mono); font-size:.62rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--amber); margin-bottom:1rem;
+}
+.section-label::before { content:''; display:block; width:20px; height:1px; background:var(--amber); opacity:.6; }
+.company-title { font-family:var(--font-serif); font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:600; line-height:1.1; margin-bottom:1.2rem; }
+.company-title em {
+  font-style:italic;
+  background:linear-gradient(108deg,var(--green) 0%,var(--amber) 48%,var(--orange) 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+.company-text p { font-size:.95rem; color:var(--text-mid); line-height:1.78; margin-bottom:1rem; }
+.grad-rule { width:48px; height:2px; background:linear-gradient(90deg,var(--green),var(--amber)); border-radius:2px; margin:1.4rem 0; }
+
+/* ═══════════════════════════════════════
+   WHY CHOOSE US
+═══════════════════════════════════════ */
+.why-section {
+  background:linear-gradient(160deg, #0f1a08 0%, #1a2c0e 50%, #0f1a08 100%);
+  position:relative; overflow:hidden;
+}
+.why-section::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 70% 60% at 80% 20%,rgba(200,122,16,.08),transparent 60%);
+}
+.why-header { text-align:center; max-width:600px; margin:0 auto 3.5rem; position:relative; z-index:1; }
+.why-label { color:var(--amber); }
+.why-title { font-family:var(--font-serif); font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:600; color:white; margin-top:.5rem; }
+.why-title em {
+  font-style:italic;
+  background:linear-gradient(108deg,var(--green) 0%,var(--amber) 48%,var(--orange) 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+.why-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; position:relative; z-index:1; }
+.why-card {
+  padding:clamp(1.4rem,3vw,2rem); background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.09); border-radius:var(--r-lg);
+  transition:all .25s ease; position:relative; overflow:hidden;
+}
+.why-card::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(74,154,26,.08),transparent);
+  opacity:0; transition:opacity .25s;
+}
+.why-card:hover { transform:translateY(-6px); background:rgba(255,255,255,.08); border-color:rgba(200,122,16,.3); }
+.why-card:hover::before { opacity:1; }
+.why-icon { font-size:2rem; margin-bottom:1rem; }
+.why-card h3 { font-family:var(--font-serif); font-size:1.2rem; color:white; margin-bottom:.6rem; }
+.why-card p { font-size:.88rem; color:rgba(255,255,255,.6); line-height:1.65; }
+
+/* ═══════════════════════════════════════
+   PRODUCTS
+═══════════════════════════════════════ */
+.products-section { background:var(--off-white); }
+.products-header { text-align:center; max-width:600px; margin:0 auto 3rem; }
+.products-title { font-family:var(--font-serif); font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:600; margin-bottom:.6rem; }
+.products-title em {
+  font-style:italic;
+  background:linear-gradient(108deg,var(--green) 0%,var(--amber) 48%,var(--orange) 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+.products-sub { font-size:.95rem; color:var(--text-mid); }
+.products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; }
+.product-card {
+  background:white; border:1px solid var(--border); border-radius:var(--r-lg);
+  overflow:hidden; transition:all .28s ease;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);
+}
+.product-card:hover { transform:translateY(-6px); box-shadow:0 16px 44px rgba(0,0,0,.1); border-color:var(--border-strong); }
+.product-img { width:100%; aspect-ratio:4/3; object-fit:cover; transition:transform .45s ease; }
+.product-card:hover .product-img { transform:scale(1.05); }
+.product-body { padding:1.4rem 1.6rem; }
+.product-tag { font-family:var(--font-mono); font-size:.58rem; letter-spacing:.2em; text-transform:uppercase; color:var(--amber); margin-bottom:.5rem; }
+.product-name { font-family:var(--font-serif); font-size:1.3rem; font-weight:600; color:var(--text-dark); margin-bottom:.5rem; }
+.product-desc { font-size:.86rem; color:var(--text-mid); line-height:1.65; }
+.products-footer { text-align:center; margin-top:2.8rem; }
+.btn-ghost {
+  display:inline-flex; align-items:center; gap:7px;
+  padding:.7rem 1.8rem; border-radius:var(--r-full);
+  border:1px solid var(--border-strong); color:var(--text-mid);
+  font-size:.86rem; font-weight:600;
+  transition: border-color .2s, color .2s, background .2s, transform .22s;
+}
+.btn-ghost:hover { border-color:var(--amber); color:var(--text-dark); background:var(--amber-bg); transform:translateY(-2px); }
+
+/* ═══════════════════════════════════════
+   TESTIMONIALS (like ref img 3)
+═══════════════════════════════════════ */
+.testimonials-section { background:white; }
+.testimonials-header { text-align:center; max-width:600px; margin:0 auto 3rem; }
+.testi-eyebrow {
+  font-family:var(--font-mono); font-size:.62rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--amber); margin-bottom:.8rem;
+  display:inline-flex; align-items:center; gap:7px;
+}
+.testi-eyebrow::before { content:''; width:20px; height:1px; background:var(--amber); opacity:.6; }
+.testi-title { font-family:var(--font-serif); font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:600; color:var(--text-dark); }
+.testi-sub { font-size:.95rem; color:var(--text-mid); margin-top:.7rem; line-height:1.7; }
+
+.testi-carousel { position:relative; }
+.testi-track-outer { overflow:hidden; }
+.testi-track {
+  display:flex; gap:1.5rem; transition:transform .5s var(--ease);
+}
+.testi-card {
+  min-width:calc(33.33% - 1rem); background:var(--off-white);
+  border:1px solid var(--border); border-radius:var(--r-lg); padding:1.8rem;
+  flex-shrink:0; position:relative;
+}
+.testi-g { position:absolute; top:1.2rem; right:1.4rem; font-size:1.3rem; font-weight:700; color:#4285f4; font-family:Arial,sans-serif; }
+.testi-name { font-family:var(--font-sans); font-weight:600; font-size:.95rem; color:var(--text-dark); margin-bottom:.8rem; }
+.testi-stars { color:var(--amber); font-size:.9rem; margin-bottom:.8rem; letter-spacing:2px; }
+.testi-text { font-size:.88rem; color:var(--text-mid); line-height:1.7; }
+
+.testi-nav { display:flex; align-items:center; justify-content:center; gap:1rem; margin-top:2rem; }
+.testi-btn {
+  width:40px; height:40px; border-radius:50%; border:1px solid var(--border-strong);
+  background:white; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:1rem; color:var(--text-mid);
+  transition:all .2s ease;
+}
+.testi-btn:hover { border-color:var(--amber); color:var(--amber); background:var(--amber-bg); }
+
+/* ═══════════════════════════════════════
+   CTA BAND (dark, like ref img 2 top portion)
+═══════════════════════════════════════ */
+.cta-band {
+  background: linear-gradient(135deg,#0a0e06 0%,#131f08 50%,#0a0c05 100%);
+  padding:clamp(3.5rem,7vw,5.5rem) 0;
+  position:relative; overflow:hidden;
+  text-align:center;
+}
+.cta-band::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 70% at 50% 50%,rgba(74,154,26,.06),transparent);
+}
+.cta-band-inner { position:relative; z-index:1; max-width:700px; margin:0 auto; }
+.cta-band-h { font-family:var(--font-serif); font-size:clamp(2rem,4vw,3.2rem); font-weight:600; color:white; margin-bottom:1rem; line-height:1.1; }
+.cta-band-p { font-size:.98rem; color:rgba(255,255,255,.68); line-height:1.75; margin-bottom:2.4rem; }
+.cta-band-btns { display:flex; align-items:center; justify-content:center; gap:1rem; flex-wrap:wrap; }
+.btn-white {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:.75rem 1.8rem; border-radius:var(--r-full);
+  background:white; color:var(--text-dark); font-size:.88rem; font-weight:600;
+  transition:transform .22s, box-shadow .22s;
+  box-shadow:0 4px 16px rgba(0,0,0,.15);
+}
+.btn-white:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,0,0,.22); }
+
+/* ═══════════════════════════════════════
+   ENQUIRY FORM
+═══════════════════════════════════════ */
+.enquiry-section { background:var(--off-white); border-top:1px solid var(--border); }
+.enquiry-header { text-align:center; max-width:600px; margin:0 auto 2.8rem; }
+.enquiry-title { font-family:var(--font-serif); font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:600; margin-bottom:.6rem; }
+.enquiry-title em {
+  font-style:italic;
+  background:linear-gradient(108deg,var(--green) 0%,var(--amber) 48%,var(--orange) 100%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+.enquiry-sub { font-size:.95rem; color:var(--text-mid); line-height:1.7; }
+.enquiry-form { max-width:700px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
+.enquiry-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.enquiry-form input, .enquiry-form select, .enquiry-form textarea {
+  padding:12px 14px; border-radius:var(--r-md); border:1px solid var(--border);
+  font-size:.9rem; background:white; font-family:var(--font-sans); color:var(--text-dark);
+  outline:none; transition:border-color .2s, box-shadow .2s;
+}
+.enquiry-form input:focus, .enquiry-form select:focus, .enquiry-form textarea:focus {
+  border-color:var(--amber); box-shadow:0 0 0 3px rgba(200,122,16,.1);
+}
+.enquiry-form textarea { resize:vertical; min-height:120px; }
+.btn-submit {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:.78rem 2.2rem; border-radius:var(--r-full);
+  background:linear-gradient(120deg,#1e2e10,#2d4218); color:#eee8d0;
+  font-size:.88rem; font-weight:600; letter-spacing:.04em;
+  border:1px solid rgba(120,190,50,.22); box-shadow:0 4px 16px rgba(0,0,0,.2);
+  transition:transform .22s, box-shadow .22s; align-self:flex-start;
+}
+.btn-submit:hover { transform:translateY(-2px); box-shadow:0 8px 26px rgba(0,0,0,.25); }
+
+/* ═══════════════════════════════════════
+   FOOTER (ref img 1 & 2 style — dark with map)
+═══════════════════════════════════════ */
+.site-footer {
+  background:linear-gradient(160deg,#0d1508 0%,#161f0a 40%,#0d1106 100%);
+  color:white; padding:clamp(3rem,6vw,5rem) 0 0;
+  position:relative; overflow:hidden;
+}
+.site-footer::before {
+  content:''; position:absolute; inset:0;
+  background-image:radial-gradient(circle,rgba(74,154,26,.06) 1px,transparent 1px);
+  background-size:28px 28px;
+}
+.footer-top {
+  position:relative; z-index:1;
+  display:grid; grid-template-columns:2fr 1fr 1fr 1.4fr; gap:clamp(2rem,4vw,4rem);
+  padding-bottom:3rem;
+}
+.footer-brand-logo { width:56px; height:56px; object-fit:contain; mix-blend-mode:lighten; margin-bottom:1rem; }
+.footer-brand-name { font-family:var(--font-serif); font-size:1.6rem; font-weight:700; margin-bottom:.3rem; }
+.footer-brand-tag { font-family:var(--font-mono); font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--amber); margin-bottom:1.2rem; }
+.footer-desc { font-size:.88rem; color:rgba(255,255,255,.6); line-height:1.75; max-width:260px; }
+
+/* Social icons */
+.footer-social { display:flex; gap:.6rem; margin-top:1.5rem; }
+.social-btn {
+  width:36px; height:36px; border-radius:8px; background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center;
+  font-size:.9rem; color:rgba(255,255,255,.7);
+  transition:background .2s, border-color .2s, color .2s, transform .2s;
+}
+.social-btn:hover { background:rgba(200,122,16,.2); border-color:rgba(200,122,16,.4); color:var(--amber); transform:translateY(-2px); }
+
+.footer-col-title { font-family:var(--font-sans); font-size:.75rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--amber); margin-bottom:1.2rem; }
+.footer-links { list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+.footer-links a {
+  display:flex; align-items:center; gap:7px;
+  font-size:.88rem; color:rgba(255,255,255,.62);
+  transition:color .2s, padding-left .2s var(--ease);
+}
+.footer-links a::before { content:'›'; font-size:1rem; color:var(--amber); opacity:.7; }
+.footer-links a:hover { color:white; padding-left:4px; }
+
+/* Contact info with icons */
+.footer-contact { display:flex; flex-direction:column; gap:.85rem; }
+.contact-item { display:flex; align-items:flex-start; gap:.7rem; }
+.contact-icon { font-size:1rem; margin-top:1px; flex-shrink:0; }
+.contact-text { font-size:.85rem; color:rgba(255,255,255,.65); line-height:1.6; }
+.contact-text a:hover { color:var(--amber); }
+
+/* Map embed */
+.footer-map {
+  margin-top:1.2rem; border-radius:var(--r-md); overflow:hidden;
+  border:1px solid rgba(255,255,255,.12); box-shadow:0 4px 20px rgba(0,0,0,.3);
+  aspect-ratio:16/9;
+}
+.footer-map iframe { width:100%; height:100%; border:none; display:block; }
+
+/* Footer bottom */
+.footer-bottom {
+  position:relative; z-index:1;
+  border-top:1px solid rgba(255,255,255,.1);
+  padding:1.2rem 0;
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+}
+.footer-bottom p { font-size:.8rem; color:rgba(255,255,255,.45); }
+.footer-bottom-links { display:flex; gap:1.5rem; }
+.footer-bottom-links a { font-size:.78rem; color:rgba(255,255,255,.4); transition:color .2s; }
+.footer-bottom-links a:hover { color:rgba(255,255,255,.8); }
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════ */
+[data-reveal] {
+  opacity:0; transform:translateY(22px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+[data-reveal].visible { opacity:1; transform:translateY(0); }
+[data-reveal-delay="1"] { transition-delay:.1s; }
+[data-reveal-delay="2"] { transition-delay:.2s; }
+[data-reveal-delay="3"] { transition-delay:.3s; }
+[data-reveal-delay="4"] { transition-delay:.4s; }
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════ */
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+@keyframes navEnter { from{opacity:0;transform:translateY(-14px)} to{opacity:1;transform:translateY(0)} }
+@keyframes linkDrop { to{opacity:1;transform:translateY(0)} }
+@keyframes ctaDrop { to{opacity:1} }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media(max-width:1024px) {
+  .products-grid { grid-template-columns:repeat(2,1fr); }
+  .footer-top { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:900px) {
+  .nav-inner { grid-template-columns: auto 1fr auto auto; }
+  .nav-divider,.nav-links { display:none; }
+  .nav-right { display:none; }
+  .nav-burger { display:flex; grid-column:4; }
+  .company-grid { grid-template-columns:1fr; }
+  .company-img-float { display:none; }
+  .why-grid { grid-template-columns:1fr 1fr; }
+  .stats-grid { grid-template-columns:1fr; gap:1px; }
+  .testi-card { min-width:calc(100% - 0px); }
+}
+@media(max-width:600px) {
+  .hero-h1 { font-size:clamp(2.4rem,11vw,3.4rem); }
+  .hero-badge { display:none; }
+  .enquiry-grid { grid-template-columns:1fr; }
+  .products-grid { grid-template-columns:1fr; }
+  .why-grid { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr; }
+  .footer-bottom { flex-direction:column; text-align:center; }
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--off-white); }
+::-webkit-scrollbar-thumb { background:rgba(160,120,40,.25); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:rgba(160,120,40,.45); }
+
+/* Hide Google Translate toolbar */
+.goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame,
+.goog-tooltip, .goog-tooltip:hover { display:none !important; }
+body { top:0 !important; }
+.skiptranslate { display:none !important; }
+
+</style>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-accent"></div>
+  <div class="nav-progress" id="navProgress"></div>
+  <div class="nav-inner">
+
+    <!-- Brand — far left -->
+    <a href="home.html" class="nav-brand">
+      <img src="assets/logo.png" class="nav-logo" alt="Indo Thai Global Logo"/>
+      <div class="nav-brand-words">
+        <span class="nav-brand-name">Indo Thai Global</span>
+        <span class="nav-brand-tag">Est. 2005 · India</span>
+      </div>
+    </a>
+
+    <div class="nav-divider"></div>
+
+    <ul class="nav-links">
+      <li><a href="home.html" class="nav-link active">Home</a></li>
+      <li><a href="home.html#products" class="nav-link">Products</a></li>
+      <li><a href="infrastructure.html" class="nav-link">Infrastructure</a></li>
+      <li><a href="home.html#why-us" class="nav-link">Why Us</a></li>
+      <li><a href="home.html#company" class="nav-link">Company</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+
+    <!-- Language Switcher + CTA + Burger — all in nav-right -->
+    <div class="nav-right">
+
+      <!-- Language Switcher -->
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" id="langBtn" aria-label="Change language">
+          <span class="lang-globe">🌐</span>
+          <span id="langLabel">EN</span>
+          <span class="lang-arrow">▾</span>
+        </button>
+        <div class="lang-dropdown" id="langDropdown">
+          <div class="lang-search-wrap">
+            <input class="lang-search" id="langSearch" type="text" placeholder="Search language…" autocomplete="off"/>
+          </div>
+          <div class="lang-list" id="langList">
+            <!-- Options injected by JS -->
+          </div>
+        </div>
+      </div>
+
+      <a href="#enquiry" class="nav-cta">Get Quote →</a>
+
+    </div><!-- /nav-right -->
+
+    <!-- Burger (mobile only, always in nav-inner) -->
+    <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
+
+  </div><!-- /nav-inner -->
+</nav>
+
+<!-- Mobile drawer -->
+<div class="nav-drawer" id="drawer">
+  <ul class="drawer-links">
+    <li><a href="home.html" class="drawer-link">Home <span>›</span></a></li>
+    <li><a href="home.html#products" class="drawer-link">Products <span>›</span></a></li>
+    <li><a href="infrastructure.html" class="drawer-link">Infrastructure <span>›</span></a></li>
+    <li><a href="home.html#why-us" class="drawer-link">Why Us <span>›</span></a></li>
+    <li><a href="home.html#company" class="drawer-link">Company <span>›</span></a></li>
+    <li><a href="contact.html" class="drawer-link">Contact <span>›</span></a></li>
+  </ul>
+  <div class="drawer-cta-wrap">
+    <a href="#enquiry" class="drawer-cta">Get Quote →</a>
+  </div>
+</div>
+
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <!-- Background image (replace src with your actual hero image) -->
+  <img src="assets/hero-bg.jpg" class="hero-bg-img" alt="" aria-hidden="true"
+       onerror="this.style.background='linear-gradient(135deg,#0a1406,#1a2c0e)';this.style.opacity='1';this.removeAttribute('src')"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-dots"></div>
+
+  <div class="container" style="width:100%">
+    <div class="hero-inner">
+      <div class="hero-pill">
+        <span class="pill-dot"></span>
+        Efficient · Hygienic · Sustainable
+      </div>
+      <h1 class="hero-h1">
+        Advanced Solar &amp; Hybrid<br>
+        <em>Drying Systems</em>
+      </h1>
+      <p class="hero-p">
+        Industrial-grade drying solutions engineered for food,
+        agriculture and pharmaceutical industries across India and beyond.
+      </p>
+      <div class="hero-btns">
+        <a href="#products" class="btn-hero-primary">Explore Products →</a>
+        <a href="#company" class="btn-hero-ghost">Our Company</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decorative badge (ref img 7 style) -->
+  <div class="hero-badge">
+    <div class="hero-badge-ring"></div>
+    <span class="hero-badge-icon">☀️</span>
+    <span class="hero-badge-text">20+<br/>Years<br/>Trust</span>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <div class="scroll-dot"></div>
+  </div>
+</section>
+
+
+<!-- ═══ STATS BAND (ref img 4 style) ═══ -->
+<section class="stats-band" id="stats">
+  <div class="container stats-band-inner">
+    <h2 class="stats-headline" data-reveal>Vision that fortifies trust</h2>
+    <p class="stats-sub" data-reveal data-reveal-delay="1">
+      With expertise and dedication, Indo Thai Global delivers innovative solar drying
+      technology that transforms agricultural and food processing industries.
+    </p>
+    <div class="stats-grid">
+      <div class="stat-card" data-reveal data-reveal-delay="1">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Systems Installed</div>
+      </div>
+      <div class="stat-card" data-reveal data-reveal-delay="2">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Years of Expertise</div>
+      </div>
+      <div class="stat-card" data-reveal data-reveal-delay="3">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Client Satisfaction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ COMPANY ═══ -->
+<section class="section company-section" id="company">
+  <div class="container">
+    <div class="company-grid">
+      <div class="company-visual" data-reveal>
+        <!-- Replace with real product/facility images -->
+        <img src="assets/product1.jpg" class="company-img-main" alt="Indo Thai Global Facility"
+             onerror="this.style.background='linear-gradient(135deg,#e8f0e0,#c8d8b0)';this.style.minHeight='300px';this.removeAttribute('src')"/>
+        <img src="assets/product2.jpg" class="company-img-float" alt="Product detail"
+             onerror="this.style.background='linear-gradient(135deg,#f0e8d0,#d8c090)';this.style.minHeight='120px';this.removeAttribute('src')"/>
+      </div>
+      <div class="company-text" data-reveal data-reveal-delay="2">
+        <div class="section-label">Company</div>
+        <h2 class="company-title">About Our <em>Company</em></h2>
+        <div class="grad-rule"></div>
+        <p>
+          Indo Thai Global is a leading manufacturer and supplier of innovative solar
+          drying solutions and food processing equipment based in Ludhiana, Punjab.
+          Since 2005, our systems have been designed to provide efficient, hygienic
+          drying for agricultural and industrial applications.
+        </p>
+        <p>
+          We focus on sustainability, energy efficiency and long-term durability.
+          Our equipment is trusted by farmers, food processing industries and
+          entrepreneurs looking to reduce post-harvest loss and increase productivity.
+        </p>
+        <a href="#enquiry" class="btn-ghost" style="margin-top:1rem">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ WHY CHOOSE US ═══ -->
+<section class="section why-section" id="why-us">
+  <div class="container">
+    <div class="why-header" data-reveal>
+      <div class="section-label why-label">Why Us</div>
+      <h2 class="why-title">Why Choose <em>Indo Thai Global</em></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card" data-reveal data-reveal-delay="1">
+        <div class="why-icon">⚡</div>
+        <h3>Innovative Technology</h3>
+        <p>Advanced solar drying technology designed for maximum efficiency and long-term sustainability.</p>
+      </div>
+      <div class="why-card" data-reveal data-reveal-delay="2">
+        <div class="why-icon">🏭</div>
+        <h3>Quality Manufacturing</h3>
+        <p>Durable materials and precision engineering ensure long-lasting, reliable performance.</p>
+      </div>
+      <div class="why-card" data-reveal data-reveal-delay="3">
+        <div class="why-icon">🌱</div>
+        <h3>Energy Efficient</h3>
+        <p>Reduce electricity costs with eco-friendly, solar-powered drying systems.</p>
+      </div>
+      <div class="why-card" data-reveal data-reveal-delay="4">
+        <div class="why-icon">🏆</div>
+        <h3>Industry Experience</h3>
+        <p>Over 20 years of expertise in agricultural and food processing equipment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRODUCTS ═══ -->
+<section class="section products-section" id="products">
+  <div class="container">
+    <div class="products-header" data-reveal>
+      <div class="section-label">Our Range</div>
+      <h2 class="products-title">Our <em>Products</em></h2>
+      <p class="products-sub">Engineered for every scale, climate and application.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card" data-reveal data-reveal-delay="1">
+        <div style="overflow:hidden">
+          <img src="assets/product-solar.jpg" class="product-img" alt="Solar Dryer"
+               onerror="this.style.background='linear-gradient(135deg,#f0e8c8,#d4b860)';this.style.minHeight='200px';this.removeAttribute('src')"/>
+        </div>
+        <div class="product-body">
+          <div class="product-tag">Solar Series</div>
+          <div class="product-name">Solar Dryer</div>
+          <p class="product-desc">High-efficiency solar drying systems for fruits, vegetables, grains and more.</p>
+        </div>
+      </div>
+      <div class="product-card" data-reveal data-reveal-delay="2">
+        <div style="overflow:hidden">
+          <img src="assets/product-hybrid.jpg" class="product-img" alt="Hybrid Dryer"
+               onerror="this.style.background='linear-gradient(135deg,#e8f0d0,#a8c860)';this.style.minHeight='200px';this.removeAttribute('src')"/>
+        </div>
+        <div class="product-body">
+          <div class="product-tag">Hybrid Series</div>
+          <div class="product-name">Hybrid Dryer</div>
+          <p class="product-desc">Combined solar + backup heating for year-round consistent drying performance.</p>
+        </div>
+      </div>
+      <div class="product-card" data-reveal data-reveal-delay="3">
+        <div style="overflow:hidden">
+          <img src="assets/product-slicer.jpg" class="product-img" alt="Vegetable Slicer"
+               onerror="this.style.background='linear-gradient(135deg,#f0d8c8,#d4905060)';this.style.minHeight='200px';this.removeAttribute('src')"/>
+        </div>
+        <div class="product-body">
+          <div class="product-tag">Processing</div>
+          <div class="product-name">Vegetable Slicer</div>
+          <p class="product-desc">Industrial-grade slicing machines for efficient pre-processing before drying.</p>
+        </div>
+      </div>
+    </div>
+    <div class="products-footer" data-reveal>
+      <a href="products.html" class="btn-ghost">View Full Catalogue →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ TESTIMONIALS (ref img 3 style) ═══ -->
+<section class="section testimonials-section">
+  <div class="container">
+    <div class="testimonials-header" data-reveal>
+      <div class="testi-eyebrow">Client Voice</div>
+      <h2 class="testi-title">What Our Clients Say</h2>
+      <p class="testi-sub">We take pride in delivering quality systems that stand the test of time and climate.</p>
+    </div>
+    <div class="testi-carousel" data-reveal>
+      <div class="testi-track-outer">
+        <div class="testi-track" id="testiTrack">
+          <div class="testi-card">
+            <div class="testi-g">G</div>
+            <div class="testi-name">Harpreet Singh</div>
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">Indo Thai Global provided us with an excellent solar dryer that reduced our post-harvest loss significantly. The system has been running flawlessly for 3 years now.</p>
+          </div>
+          <div class="testi-card">
+            <div class="testi-g">G</div>
+            <div class="testi-name">Ramesh Patel</div>
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">Very professional team. They understood our requirement completely and installed a hybrid dryer that works perfectly through all seasons. Highly recommended.</p>
+          </div>
+          <div class="testi-card">
+            <div class="testi-g">G</div>
+            <div class="testi-name">Sukhwinder Kaur</div>
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">We've been using their vegetable slicer and solar dryer together. The combination has transformed our food processing unit completely. Great quality and after-sales service.</p>
+          </div>
+          <div class="testi-card">
+            <div class="testi-g">G</div>
+            <div class="testi-name">Amit Sharma</div>
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">The team at Indo Thai Global is very knowledgeable. They helped us choose the right dryer capacity and the installation was smooth and on time.</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-nav">
+        <button class="testi-btn" id="testiPrev">‹</button>
+        <button class="testi-btn" id="testiNext">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ CTA BAND ═══ -->
+<section class="cta-band">
+  <div class="container cta-band-inner">
+    <h2 class="cta-band-h" data-reveal>Fabricating your vision into<br>sustainable agricultural solutions</h2>
+    <p class="cta-band-p" data-reveal data-reveal-delay="1">
+      Indo Thai Global is ready to understand your requirement and deliver the most efficient
+      solar drying solution tailored to your scale and crop type.
+    </p>
+    <div class="cta-band-btns" data-reveal data-reveal-delay="2">
+      <a href="#enquiry" class="btn-white">Send Enquiry →</a>
+      <a href="tel:+917657944044" class="btn-hero-ghost">📞 +91 76579-44044</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ ENQUIRY FORM ═══ -->
+<section class="section enquiry-section" id="enquiry">
+  <div class="container">
+    <div class="enquiry-header" data-reveal>
+      <div class="section-label">Enquiry</div>
+      <h2 class="enquiry-title">Tell Us Your <em>Requirement</em></h2>
+      <p class="enquiry-sub">Looking for solar dryers or equipment? Send us your requirement and our team will contact you promptly.</p>
+    </div>
+    <form class="enquiry-form" data-reveal>
+      <div class="enquiry-grid">
+        <input type="text" placeholder="Your Name *" required>
+        <input type="email" placeholder="Email Address *" required>
+        <input type="tel" placeholder="Phone Number *" required>
+        <select required>
+          <option value="">Select Product</option>
+          <option>Solar Dryer</option>
+          <option>Hybrid Dryer</option>
+          <option>Honey Processing</option>
+          <option>Plastic Crates</option>
+          <option>Kitchen Equipments</option>
+          <option>Vegetable Slicer Machine</option>
+          <option>Pulverizer</option>
+          <option>Knapsack Sprayer</option>
+        </select>
+      </div>
+      <textarea placeholder="Describe your requirement…"></textarea>
+      <button type="submit" class="btn-submit">Send Enquiry →</button>
+    </form>
+  </div>
+</section>
+
+
+<!-- ═══ FOOTER (ref img 1 & 2 style) ═══ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+
+      <!-- Brand col -->
+      <div class="footer-brand-col">
+        <img src="assets/logo.png" class="footer-brand-logo" alt="Indo Thai Global"
+             onerror="this.style.display='none'"/>
+        <div class="footer-brand-name">Indo Thai Global</div>
+        <div class="footer-brand-tag">Est. 2005 · Ludhiana, India</div>
+        <p class="footer-desc">
+          Innovative solar drying solutions for agriculture and food processing
+          industries. Trusted by 500+ clients across India.
+        </p>
+        <div class="footer-social">
+          <a href="#" class="social-btn" aria-label="Instagram">📷</a>
+          <a href="#" class="social-btn" aria-label="Facebook">f</a>
+          <a href="#" class="social-btn" aria-label="YouTube">▶</a>
+          <a href="#" class="social-btn" aria-label="WhatsApp">💬</a>
+        </div>
+      </div>
+
+      <!-- Quick links -->
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="home.html#products">Products</a></li>
+          <li><a href="home.html#company">Company</a></li>
+          <li><a href="home.html#why-us">Why Us</a></li>
+          <li><a href="infrastructure.html">Infrastructure</a></li>
+          <li><a href="#enquiry">Get Quote</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <div class="footer-col-title">Contact Us</div>
+        <div class="footer-contact">
+          <div class="contact-item">
+            <span class="contact-icon">📞</span>
+            <div class="contact-text">
+              <a href="tel:+917657944044">+91 76579-44044</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">✉️</span>
+            <div class="contact-text">
+              <a href="/cdn-cgi/l/email-protection#1f767179705f76717b706b777e767873707d7e73317c7072"><span class="__cf_email__" data-cfemail="aec7c0c8c1eec7c0cac1dac6cfc7c9c2c1cccfc280cdc1c3">[email&#160;protected]</span></a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <span class="contact-icon">📍</span>
+            <div class="contact-text">Ludhiana, Punjab, India</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map (ref img 1 style) -->
+      <div>
+        <div class="footer-col-title">Location</div>
+        <div class="footer-map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d109742.44613948843!2d75.76845!3d30.9009!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a837462345b43%3A0x4a3c5c08c5e7d543!2sLudhiana%2C%20Punjab!5e0!3m2!1sen!2sin!4v1641000000000!5m2!1sen!2sin"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            title="Indo Thai Global Location">
+          </iframe>
+        </div>
+      </div>
+
+    </div><!-- /footer-top -->
+
+    <div class="footer-bottom">
+      <p>© 2026 Indo Thai Global — All Rights Reserved</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  'use strict';
+
+  /* ── Navbar scroll ── */
+  const nav = document.getElementById('nav');
+  const progress = document.getElementById('navProgress');
+  function onScroll(){
+    nav.classList.toggle('is-scrolled', window.scrollY > 12);
+    if(progress){
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.width = docH > 0 ? (window.scrollY/docH*100).toFixed(2)+'%' : '0%';
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* ── Burger ── */
+  const burger = document.getElementById('burger');
+  const drawer = document.getElementById('drawer');
+  let open = false;
+  function toggle(f){
+    open = typeof f==='boolean' ? f : !open;
+    burger.classList.toggle('is-open', open);
+    drawer.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', ()=>toggle());
+  drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggle(false)));
+  document.addEventListener('click',e=>{
+    if(open && !nav.contains(e.target) && !drawer.contains(e.target)) toggle(false);
+  });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&open) toggle(false); });
+  window.addEventListener('resize',()=>{ if(open&&window.innerWidth>900) toggle(false); },{passive:true});
+
+  /* ── Language Switcher — Full World Languages + Google Translate ── */
+  const LANGUAGES = [
+    { code:'en',  flag:'🇬🇧', name:'English' },
+    { code:'hi',  flag:'🇮🇳', name:'हिन्दी (Hindi)' },
+    { code:'pa',  flag:'🇮🇳', name:'ਪੰਜਾਬੀ (Punjabi)' },
+    { code:'mr',  flag:'🇮🇳', name:'मराठी (Marathi)' },
+    { code:'gu',  flag:'🇮🇳', name:'ગુજરાતી (Gujarati)' },
+    { code:'bn',  flag:'🇧🇩', name:'বাংলা (Bengali)' },
+    { code:'ta',  flag:'🇮🇳', name:'தமிழ் (Tamil)' },
+    { code:'te',  flag:'🇮🇳', name:'తెలుగు (Telugu)' },
+    { code:'kn',  flag:'🇮🇳', name:'ಕನ್ನಡ (Kannada)' },
+    { code:'ml',  flag:'🇮🇳', name:'മലയാളം (Malayalam)' },
+    { code:'ur',  flag:'🇵🇰', name:'اردو (Urdu)' },
+    { code:'th',  flag:'🇹🇭', name:'ภาษาไทย (Thai)' },
+    { code:'zh-CN',flag:'🇨🇳',name:'中文简体 (Chinese Simplified)' },
+    { code:'zh-TW',flag:'🇹🇼',name:'中文繁體 (Chinese Traditional)' },
+    { code:'ja',  flag:'🇯🇵', name:'日本語 (Japanese)' },
+    { code:'ko',  flag:'🇰🇷', name:'한국어 (Korean)' },
+    { code:'ar',  flag:'🇸🇦', name:'العربية (Arabic)' },
+    { code:'fa',  flag:'🇮🇷', name:'فارسی (Persian)' },
+    { code:'tr',  flag:'🇹🇷', name:'Türkçe (Turkish)' },
+    { code:'ru',  flag:'🇷🇺', name:'Русский (Russian)' },
+    { code:'uk',  flag:'🇺🇦', name:'Українська (Ukrainian)' },
+    { code:'pl',  flag:'🇵🇱', name:'Polski (Polish)' },
+    { code:'de',  flag:'🇩🇪', name:'Deutsch (German)' },
+    { code:'fr',  flag:'🇫🇷', name:'Français (French)' },
+    { code:'es',  flag:'🇪🇸', name:'Español (Spanish)' },
+    { code:'it',  flag:'🇮🇹', name:'Italiano (Italian)' },
+    { code:'pt',  flag:'🇧🇷', name:'Português (Portuguese)' },
+    { code:'nl',  flag:'🇳🇱', name:'Nederlands (Dutch)' },
+    { code:'sv',  flag:'🇸🇪', name:'Svenska (Swedish)' },
+    { code:'no',  flag:'🇳🇴', name:'Norsk (Norwegian)' },
+    { code:'da',  flag:'🇩🇰', name:'Dansk (Danish)' },
+    { code:'fi',  flag:'🇫🇮', name:'Suomi (Finnish)' },
+    { code:'el',  flag:'🇬🇷', name:'Ελληνικά (Greek)' },
+    { code:'cs',  flag:'🇨🇿', name:'Čeština (Czech)' },
+    { code:'ro',  flag:'🇷🇴', name:'Română (Romanian)' },
+    { code:'hu',  flag:'🇭🇺', name:'Magyar (Hungarian)' },
+    { code:'id',  flag:'🇮🇩', name:'Bahasa Indonesia' },
+    { code:'ms',  flag:'🇲🇾', name:'Bahasa Melayu (Malay)' },
+    { code:'vi',  flag:'🇻🇳', name:'Tiếng Việt (Vietnamese)' },
+    { code:'tl',  flag:'🇵🇭', name:'Filipino (Tagalog)' },
+    { code:'sw',  flag:'🇰🇪', name:'Kiswahili (Swahili)' },
+    { code:'am',  flag:'🇪🇹', name:'አማርኛ (Amharic)' },
+    { code:'he',  flag:'🇮🇱', name:'עברית (Hebrew)' },
+    { code:'af',  flag:'🇿🇦', name:'Afrikaans' },
+    { code:'sq',  flag:'🇦🇱', name:'Shqip (Albanian)' },
+    { code:'hy',  flag:'🇦🇲', name:'Հայերեն (Armenian)' },
+    { code:'az',  flag:'🇦🇿', name:'Azərbaycanca (Azerbaijani)' },
+    { code:'be',  flag:'🇧🇾', name:'Беларуская (Belarusian)' },
+    { code:'bs',  flag:'🇧🇦', name:'Bosanski (Bosnian)' },
+    { code:'bg',  flag:'🇧🇬', name:'Български (Bulgarian)' },
+    { code:'ca',  flag:'🏴', name:'Català (Catalan)' },
+    { code:'hr',  flag:'🇭🇷', name:'Hrvatski (Croatian)' },
+    { code:'et',  flag:'🇪🇪', name:'Eesti (Estonian)' },
+    { code:'ka',  flag:'🇬🇪', name:'ქართული (Georgian)' },
+    { code:'is',  flag:'🇮🇸', name:'Íslenska (Icelandic)' },
+    { code:'km',  flag:'🇰🇭', name:'ភាសាខ្មែរ (Khmer)' },
+    { code:'lv',  flag:'🇱🇻', name:'Latviešu (Latvian)' },
+    { code:'lt',  flag:'🇱🇹', name:'Lietuvių (Lithuanian)' },
+    { code:'mk',  flag:'🇲🇰', name:'Македонски (Macedonian)' },
+    { code:'mn',  flag:'🇲🇳', name:'Монгол (Mongolian)' },
+    { code:'my',  flag:'🇲🇲', name:'မြန်မာ (Myanmar/Burmese)' },
+    { code:'ne',  flag:'🇳🇵', name:'नेपाली (Nepali)' },
+    { code:'ps',  flag:'🇦🇫', name:'پښتو (Pashto)' },
+    { code:'si',  flag:'🇱🇰', name:'සිංහල (Sinhala)' },
+    { code:'sk',  flag:'🇸🇰', name:'Slovenčina (Slovak)' },
+    { code:'sl',  flag:'🇸🇮', name:'Slovenščina (Slovenian)' },
+    { code:'so',  flag:'🇸🇴', name:'Soomaali (Somali)' },
+    { code:'sr',  flag:'🇷🇸', name:'Српски (Serbian)' },
+    { code:'su',  flag:'🇮🇩', name:'Basa Sunda (Sundanese)' },
+    { code:'tg',  flag:'🇹🇯', name:'Тоҷикӣ (Tajik)' },
+    { code:'uz',  flag:'🇺🇿', name:'Oʻzbek (Uzbek)' },
+    { code:'cy',  flag:'🏴󠁧󠁢󠁷󠁬󠁳󠁿', name:'Cymraeg (Welsh)' },
+    { code:'xh',  flag:'🇿🇦', name:'isiXhosa (Xhosa)' },
+    { code:'yi',  flag:'🇮🇱', name:'ייִדיש (Yiddish)' },
+    { code:'zu',  flag:'🇿🇦', name:'isiZulu (Zulu)' },
+  ];
+
+  const langSwitcher = document.getElementById('langSwitcher');
+  const langBtn      = document.getElementById('langBtn');
+  const langLabel    = document.getElementById('langLabel');
+  const langList     = document.getElementById('langList');
+  const langSearch   = document.getElementById('langSearch');
+
+  // Build list
+  function buildLangList(filter) {
+    langList.innerHTML = '';
+    const q = (filter||'').toLowerCase();
+    LANGUAGES.forEach(l => {
+      if(q && !l.name.toLowerCase().includes(q) && !l.code.includes(q)) return;
+      const div = document.createElement('div');
+      div.className = 'lang-option' + (l.code === currentLang ? ' active' : '');
+      div.dataset.code = l.code;
+      div.innerHTML = `<span>${l.flag}</span><span>${l.name}</span>`;
+      div.addEventListener('click', () => selectLang(l));
+      langList.appendChild(div);
+    });
+  }
+
+  let currentLang = 'en';
+
+  function selectLang(l) {
+    currentLang = l.code;
+    langLabel.textContent = l.code.split('-')[0].toUpperCase();
+    langSwitcher.classList.remove('open');
+    langSearch.value = '';
+    buildLangList('');
+    applyGoogleTranslate(l.code);
+  }
+
+  function applyGoogleTranslate(langCode) {
+    // Inject Google Translate if not already loaded
+    if(!document.getElementById('google-translate-element')) {
+      const div = document.createElement('div');
+      div.id = 'google-translate-element';
+      div.style.cssText = 'position:fixed;bottom:-999px;left:0;opacity:0;pointer-events:none;z-index:-1';
+      document.body.appendChild(div);
+    }
+    // Use Google Translate via cookie method (works without API key)
+    const langMap = { 'zh-CN':'zh-CN', 'zh-TW':'zh-TW' };
+    const gtLang = langMap[langCode] || langCode;
+    // Set the googtrans cookie
+    const domain = window.location.hostname === 'localhost' ? 'localhost' : window.location.hostname;
+    document.cookie = `googtrans=/en/${gtLang}; path=/; domain=${domain}`;
+    document.cookie = `googtrans=/en/${gtLang}; path=/`;
+    // Load Google Translate script if not loaded
+    if(!window.google || !window.google.translate) {
+      window.googleTranslateElementInit = function() {
+        new window.google.translate.TranslateElement(
+          { pageLanguage:'en', includedLanguages:'', autoDisplay:false },
+          'google-translate-element'
+        );
+        triggerTranslate(gtLang);
+      };
+      const script = document.createElement('script');
+      script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      script.id = 'gtranslate-script';
+      document.head.appendChild(script);
+    } else {
+      triggerTranslate(gtLang);
+    }
+  }
+
+  function triggerTranslate(langCode) {
+    // Find the Google Translate select and change it
+    const trySelect = () => {
+      const select = document.querySelector('.goog-te-combo');
+      if(select) {
+        select.value = langCode;
+        select.dispatchEvent(new Event('change'));
+      } else {
+        setTimeout(trySelect, 300);
+      }
+    };
+    trySelect();
+  }
+
+  // Toggle open/close
+  langBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const opening = !langSwitcher.classList.contains('open');
+    langSwitcher.classList.toggle('open', opening);
+    if(opening) {
+      setTimeout(() => langSearch.focus(), 80);
+      buildLangList('');
+    }
+  });
+
+  // Search filter
+  langSearch.addEventListener('input', () => buildLangList(langSearch.value));
+  langSearch.addEventListener('click', e => e.stopPropagation());
+
+  // Close on outside click
+  document.addEventListener('click', e => {
+    if(!langSwitcher.contains(e.target)) {
+      langSwitcher.classList.remove('open');
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') langSwitcher.classList.remove('open');
+  });
+
+  // Init list
+  buildLangList('');
+
+  /* ── Scroll reveal ── */
+  if('IntersectionObserver' in window){
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    },{threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('[data-reveal]').forEach(el=>obs.observe(el));
+  }
+
+  /* ── Testimonials carousel ── */
+  const track = document.getElementById('testiTrack');
+  const cards = track ? track.querySelectorAll('.testi-card') : [];
+  let current = 0;
+  const visibleCount = ()=> window.innerWidth > 900 ? 3 : 1;
+  function updateCarousel(){
+    const w = cards[0] ? cards[0].offsetWidth + 24 : 0; // card width + gap
+    track.style.transform = `translateX(-${current * w}px)`;
+  }
+  document.getElementById('testiNext')?.addEventListener('click',()=>{
+    const max = cards.length - visibleCount();
+    current = Math.min(current+1, max);
+    updateCarousel();
+  });
+  document.getElementById('testiPrev')?.addEventListener('click',()=>{
+    current = Math.max(current-1, 0);
+    updateCarousel();
+  });
+  window.addEventListener('resize', updateCarousel, {passive:true});
+
+  /* ── Active nav link ── */
+  const page = window.location.pathname.split('/').pop() || 'home.html';
+  document.querySelectorAll('.nav-link, .drawer-link').forEach(function(link){
+    const href = link.getAttribute('href');
+    if(href === page) link.classList.add('active');
+    else link.classList.remove('active');
+  });
+
+})();
+</script>
+</body>
+</html>
